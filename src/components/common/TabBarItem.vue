@@ -1,13 +1,25 @@
 <template>
    <div class="tab-bar-item">
-     <slot name="item-icon"></slot>
-     <slot name="item-text"></slot>
+     <div v-if="!isactive">
+       <slot name="item-icon"></slot>
+     </div>
+     <div v-else="isactive">
+       <slot name="item-icon-active"></slot>
+     </div>
+     <div :class="{active: isactive}">
+       <slot name="item-text"></slot>
+     </div>
    </div>
 </template>
 
 <script>
 export default {
-  name: "TabBarItem"
+  name: "TabBarItem",
+  data(){
+    return {
+      isactive: true
+    }
+  }
 }
 </script>
 
@@ -21,5 +33,8 @@ export default {
     height: 24px;
     vertical-align: center;
     margin-bottom:0;
+  }
+  .active{
+    color: red;
   }
 </style>
