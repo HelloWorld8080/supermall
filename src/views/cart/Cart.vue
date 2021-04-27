@@ -1,6 +1,6 @@
 <template>
   <div>
-    购物车
+    购物车 {{$store.state.info}}
   </div>
 
 </template>

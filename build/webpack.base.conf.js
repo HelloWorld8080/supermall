@@ -30,6 +30,7 @@ module.exports = {
       'components': resolve('src/components'),
       'router': resolve('src/router'),
       'views': resolve('src/views'),
+      'network': resolve('src/network')
     }
   },
   module: {

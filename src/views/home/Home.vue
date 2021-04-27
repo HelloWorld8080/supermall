@@ -1,16 +1,37 @@
 <template>
   <div id="home">
     <nav-bar class="home-bar">
-      <div slot="center">购物街</div>
+      <div slot="center">
+        购物街
+<!--        {{$store.state.info}}-->
+      </div>
     </nav-bar>
+    <div>{{netdata}}</div>
   </div>
 </template>
 
 <script>
 import NavBar from "components/common/navbar/NavBar";
+import {getDate, postDate} from "network/home";
 export default {
   name: "Home",
-  components: {NavBar}
+  data(){
+    return {
+      netdata: {}
+    }
+  },
+  created() {
+    getDate().then(res=>{
+      console.log(res);
+      this.netdata=res
+    }).catch(err=>{
+      console.log(err);
+    })
+  },
+  components: {
+    NavBar
+  }
+
 }
 </script>
 
