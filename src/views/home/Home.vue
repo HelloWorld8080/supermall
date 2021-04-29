@@ -6,8 +6,9 @@
 <!--        {{$store.state.info}}-->
       </div>
     </nav-bar>
-    <home-swiper :banners="banners"></home-swiper>
+
 <!--    <div>{{netdata}}</div>-->
+    <home-swiper :banners="banners"></home-swiper>
   </div>
 </template>
 
@@ -200,5 +201,12 @@ export default {
   background-color: var(--color-tint);
   color: #fff;
 }
-
+  .content{
+    overflow: hidden;
+    position: absolute;
+    top: 44px;
+    bottom: 49px;
+    left: 0;
+    right: 0;
+  }
 </style>

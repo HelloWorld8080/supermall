@@ -26,7 +26,7 @@ export default {
   right: 0;
   top: 0;
 
-  height: 44px;
+  /*height: 44px;*/
   line-height: 44px;
 
   text-align: center;
