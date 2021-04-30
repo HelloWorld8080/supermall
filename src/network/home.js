@@ -1,13 +1,17 @@
 import {request} from "network/request";
 
 
-export function getDate(){
+export function getHomeMultiData(){
   return request({
-    url: '/home/multidate',
+    url: '/home/multidata',
   })
 }
-export function postDate(){
+export function getHomeGoods(type,page){
   return request({
-    url: '/post',
+    url: '/home/data?type='+type+'&page='+page,
+    // params: {
+    //   type,
+    //   page
+    // }
   })
 }

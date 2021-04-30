@@ -1,8 +1,8 @@
 <template>
   <swiper>
-    <swiper-item v-for="(intem,index) in banners" :key="index">
-      <a :href="intem.link">
-        <img :src="intem.image" alt="">
+    <swiper-item v-for="(item,index) in banners" :key="index">
+      <a :href="item.link">
+        <img :src="item.image" alt="">
       </a>
     </swiper-item>
   </swiper>

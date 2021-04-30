@@ -1,21 +1,24 @@
 <template>
   <div id="home">
-    <nav-bar class="home-bar">
-      <div slot="center">
-        购物街
-<!--        {{$store.state.info}}-->
-      </div>
-    </nav-bar>
-
+    <nav-bar class="home-bar"> <div slot="center">购物街</div> </nav-bar>
+    <scroll class="content" :probe-type="3">
+      <home-swiper :banners="banners"></home-swiper>
+      <tab-control :titles="['流行','新款','经典']" class="tab-control" @tabClick="tabClickHome"></tab-control>
+      <home-good-list :goods="goods[curtype].list"></home-good-list>
+    </scroll>
 <!--    <div>{{netdata}}</div>-->
-    <home-swiper :banners="banners"></home-swiper>
+
   </div>
 </template>
 
 <script>
 import NavBar from "components/common/navbar/NavBar";
 import HomeSwiper from "views/home/childComps/HomeSwiper";
-import {getDate, postDate} from "network/home";
+import {getHomeGoods, getHomeMultiData} from "network/home";
+import TabControl from "components/content/tabcontrol/TabControl";
+import HomeGoodList from "views/home/childComps/HomeGoodList";
+import Scroll from "components/common/scroll/Scroll";
+
 const data={
   "banner": {
     "context": {
@@ -176,22 +179,56 @@ export default {
   data(){
     return {
       netdata: {},
-      banners: data.banner.list
+      banners: [],
+      goods: {
+        'pop': {page: 0, list: []},
+        'new': {page: 0, list: []},
+        'sell': {page: 0, list: []},
+      },
+      curtype: 'pop'
     }
   },
-  created() {
+  created(){
+    this.getHomeMultiData()
 
-    getDate().then(res=>{
-
-    }).catch(err=>{
-      console.log(err);
-    })
+    this.getHomeGoods('pop')
+    this.getHomeGoods('new')
+    this.getHomeGoods('sell')
   },
   components: {
+    Scroll,
+    HomeGoodList,
     NavBar,
-    HomeSwiper
+    HomeSwiper,
+    TabControl
+  },
+  methods: {
+    getHomeMultiData(){
+      getHomeMultiData().then(res=>{
+        this.banners = res.data.banner.list
+      })
+    },
+    getHomeGoods(type){
+      this.goods[type].page++;
+      getHomeGoods(type,this.goods[type].page).then(res=>{
+        this.goods[type].list=res.data.list
+      })
+    },
+    tabClickHome(index){
+      switch (index){
+        case 0:
+          this.curtype='pop';
+          break
+        case 1:
+          this.curtype='new';
+          break
+        case 2:
+          this.curtype='sell';
+          break
+      }
+      //console.log(this.curtype);
+    }
   }
-
 }
 </script>
 
@@ -208,5 +245,11 @@ export default {
     bottom: 49px;
     left: 0;
     right: 0;
+  }
+  .tab-control{
+    position: sticky;
+    top: 44px;
+    background-color: white;
+    z-index: 9;
   }
 </style>

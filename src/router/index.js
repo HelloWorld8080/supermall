@@ -23,7 +23,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
+      name: 'default',
       redirect: '/home'
     }, {
       path: '/home',

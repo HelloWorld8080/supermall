@@ -103,9 +103,11 @@
         },this.animDuration)
       },
       setTransform(curpos){
+
         this.swiperStyle.transform= `translate3d(${curpos}px,0,0)`
         this.swiperStyle['-webkit-transform']= `translate3d(${curpos}px,0,0)`
         this.swiperStyle['-ms-transform']= `translate3d(${curpos}px,0,0)`
+
       },
 
       touchStart(e){
