@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <nav-bar class="home-bar"> <div slot="center">购物街</div> </nav-bar>
-    <scroll class="content" :probe-type="3">
+    <scroll class="content" :probe-type="3" ref="hscroll">
       <home-swiper :banners="banners"></home-swiper>
       <tab-control :titles="['流行','新款','经典']" class="tab-control" @tabClick="tabClickHome"></tab-control>
       <home-good-list :goods="goods[curtype].list"></home-good-list>
@@ -194,6 +194,18 @@ export default {
     this.getHomeGoods('pop')
     this.getHomeGoods('new')
     this.getHomeGoods('sell')
+    //刷新scrollheight，适应滚动
+    this.$bus.$on('imgLoad',()=>{
+      console.log('oodfj');
+      this.$refs.hscroll.scrollRefresh();
+    })
+  },
+  mounted() {
+    // //刷新scrollheight，适应滚动
+    // this.$bus.$on('imgLoad',()=>{
+    //   console.log('oodfj');
+    //   this.$refs.hscroll.scrollRefresh();
+    // })
   },
   components: {
     Scroll,
@@ -227,7 +239,7 @@ export default {
           break
       }
       //console.log(this.curtype);
-    }
+    },
   }
 }
 </script>

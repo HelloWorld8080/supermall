@@ -21,12 +21,4 @@ export default {
     width: 100%;
     border-radius: 5px;
   }
-  .good-list-item text{
-    font-size: 12px;
-    position: absolute;
-    bottom: 5px;
-    left: 0;
-    right: 0;
-    text-align: center;
-  }
 </style>

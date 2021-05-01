@@ -23,7 +23,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'default',
+      name: 'Default',
       redirect: '/home'
     }, {
       path: '/home',
@@ -45,5 +45,6 @@ export default new Router({
       name: 'Profile',
       component: Profile
     }
-  ]
+  ],
+  mode: "history"
 })
