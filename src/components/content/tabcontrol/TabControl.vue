@@ -1,6 +1,6 @@
 <template>
   <div class="tab-control">
-    <div class="tab-control-item" v-for="(item,index) in titles" @click="isActive(index)">
+    <div class="tab-control-item" v-for="(item,index) in titles" @click="isActive(idn,index)">
       <span :class="{active: index===curindex}">{{item}}</span>
     </div>
   </div>
@@ -15,6 +15,12 @@ export default {
       default(){
         return []
       }
+    },
+    idn: {
+      type: String,
+      default() {
+        return '';
+      }
     }
   },
   data(){
@@ -23,9 +29,9 @@ export default {
     }
   },
   methods:{
-    isActive(index){
+    isActive(idn,index){
       this.curindex= index
-      this.$emit('tabClick',index)
+      this.$emit('tabClick',idn,index)
     }
   }
 

@@ -1,6 +1,6 @@
 <template>
   <div id="hy-swiper">
-    <div class="swiper" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd">
+    <div class="swiper" ref="swiper" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd">
       <slot></slot>
     </div>
 
@@ -40,19 +40,23 @@
         slideCount: 0,
         curentIndex: 1,
         totalWidth: 0,
-        scroling: false
+        scroling: false,
       }
     },
     mounted() {
-      setTimeout(()=>{
-        this.handleDom()
-        this.startTimer()
-      },3000)
-
+      try{
+        setTimeout(()=>{
+          this.handleDom()
+          this.startTimer()
+        },3000)
+      }catch (e) {
+        console.log(e);
+      }
     },
     methods:{
       handleDom(){
-        let swiperEl= document.querySelector('.swiper')
+        if(!this.$refs.swiper.$el) return;
+        let swiperEl= this.$refs.swiper.$el
         let slideEls= document.getElementsByClassName('slide')
         this.slideCount= slideEls.length
 
@@ -63,6 +67,7 @@
 
           swiperEl.insertBefore(clonelast,slideEls[0])
           swiperEl.appendChild(clonefirst)
+          if(!this.swiperStyle) return
           this.swiperStyle= swiperEl.style
         }
         this.totalWidth= swiperEl .offsetWidth
@@ -80,14 +85,19 @@
       },
 
       scrollContent(curpos){
-        this.scroling= true;
+        try{
+          this.scroling= true;
 
-        this.swiperStyle.transition= this.animDuration+'ms';
-        this.setTransform(curpos)
+          this.swiperStyle.transition= this.animDuration+'ms';
+          this.setTransform(curpos)
 
-        this.checkPosition()
+          this.checkPosition()
 
-        this.scroling= false;
+          this.scroling= false;
+        }catch (e) {
+          // console.log(e);
+        }
+
       },
       checkPosition(){
         window.setTimeout(()=>{
@@ -103,11 +113,11 @@
         },this.animDuration)
       },
       setTransform(curpos){
-
-        this.swiperStyle.transform= `translate3d(${curpos}px,0,0)`
-        this.swiperStyle['-webkit-transform']= `translate3d(${curpos}px,0,0)`
-        this.swiperStyle['-ms-transform']= `translate3d(${curpos}px,0,0)`
-
+        if(this.swiperStyle){
+          this.swiperStyle.transform= `translate3d(${curpos}px,0,0)`
+          this.swiperStyle['-webkit-transform']= `translate3d(${curpos}px,0,0)`
+          this.swiperStyle['-ms-transform']= `translate3d(${curpos}px,0,0)`
+        }
       },
 
       touchStart(e){

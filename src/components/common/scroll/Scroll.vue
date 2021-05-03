@@ -26,12 +26,16 @@ export default {
     this.scroll = new BScroll(this.$refs.wrapper,{
       click: true,
       probeType: this.probeType,
+
     })
-    console.log(this.scroll);
+    this.scroll.on('scroll',position=>{
+      this.$emit('scroll',position)
+    })
+    // console.log(this.scroll);
   },
   methods:{
     scrollRefresh(){
-      this.scroll.refresh()
+      this.scroll && this.scroll.refresh()
     }
   }
 }

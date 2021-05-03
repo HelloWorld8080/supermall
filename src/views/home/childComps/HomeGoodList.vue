@@ -1,9 +1,7 @@
 <template>
   <good-list >
-    <good-list-item  v-for="(item,index) in goods" :key="index">
-      <a slot="item-img" :href="item.link">
-        <img :src="item.show.img" @load="imgLoad">
-      </a>
+    <good-list-item  v-for="(item,index) in goods" :key="index" >
+      <img slot="item-img" :src="item.show.img" @load="imgLoad" @click="goodDetail(item)">
       <div slot="item-text" class="goods-info">
         <p>{{item.title}}</p>
         <span class="price">{{item.price}}</span>
@@ -34,6 +32,16 @@ export default {
   methods: {
     imgLoad() {
       this.$bus.$emit('imgLoad')
+    },
+    goodDetail(item){
+      console.log(item);
+      this.$router.push({
+        path: '/detail',
+        query: {
+          iid: item.iid,
+
+        }
+      })
 
     }
   }
