@@ -16,7 +16,7 @@
       <tab-control :titles="['流行','新款','经典']"  @tabClick="tabClickHome" ref="tabcontrol2" idn="tc2"></tab-control>
       <home-good-list :goods="goods[curtype].list"></home-good-list>
     </scroll>
-    <BackTop @click.native = "backTop"></BackTop>
+    <BackTop @click.native = "backTop" v-show="istopshow"></BackTop>
 <!--    <div>{{netdata}}</div>-->
 
   </div>
@@ -55,6 +55,7 @@ export default {
       istcshow: false,
       curtype: 'pop',
       tcoffsettop: 0,
+      istopshow: false,
     }
   },
   created(){
@@ -94,6 +95,7 @@ export default {
     },
     scroll(position){
       this.istcshow = (-position.y)>this.tcoffsettop
+      this.istopshow = (-position.y)>1000
     },
     sImgLoaded() {
       this.tcoffsettop=this.$refs.tabcontrol2.$el.offsetTop
