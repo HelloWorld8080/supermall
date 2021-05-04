@@ -15,6 +15,12 @@ export default {
       default(){
         return 0
       }
+    },
+    pullUpLoad:{
+      type: Boolean,
+      default() {
+        return false
+      }
     }
   },
   data(){
@@ -26,16 +32,27 @@ export default {
     this.scroll = new BScroll(this.$refs.wrapper,{
       click: true,
       probeType: this.probeType,
-
+      pullUpLoad: this.pullUpLoad
     })
     this.scroll.on('scroll',position=>{
       this.$emit('scroll',position)
     })
+    this.scroll.on('pullingUp',()=>{
+      // console.log('sj');
+      this.$emit('pullingUp')
+
+    })
     // console.log(this.scroll);
   },
-  methods:{
-    scrollRefresh(){
+  methods: {
+    scrollTo(x,y,time=300){
+      this.scroll.scrollTo(x,y,time)
+    },
+    scrollRefresh() {
       this.scroll && this.scroll.refresh()
+    },
+    finishPullUp() {
+      this.scroll.finishPullUp()
     }
   }
 }

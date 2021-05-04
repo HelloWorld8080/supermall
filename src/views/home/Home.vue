@@ -6,11 +6,17 @@
       :titles="['流行','新款','经典']"
       @tabClick="tabClickHome"
       ref="tabcontrol1" class="tab-control1" idn="tc1"></tab-control>
-    <scroll class="content" :probe-type="3" ref="hscroll" @scroll="scroll">
+    <scroll class="content"
+            :probe-type="3"
+            ref="hscroll"
+            @scroll="scroll"
+            :pull-up-load="true"
+            @pullingUp="pullMore">
       <home-swiper :banners="banners" @sImgLoaded="sImgLoaded"></home-swiper>
       <tab-control :titles="['流行','新款','经典']"  @tabClick="tabClickHome" ref="tabcontrol2" idn="tc2"></tab-control>
       <home-good-list :goods="goods[curtype].list"></home-good-list>
     </scroll>
+    <BackTop @click.native = "backTop"></BackTop>
 <!--    <div>{{netdata}}</div>-->
 
   </div>
@@ -19,14 +25,24 @@
 <script>
 import NavBar from "components/common/navbar/NavBar";
 import HomeSwiper from "views/home/childComps/HomeSwiper";
-import {getHomeGoods, getHomeMultiData} from "network/home";
 import TabControl from "components/content/tabcontrol/TabControl";
 import HomeGoodList from "views/home/childComps/HomeGoodList";
 import Scroll from "components/common/scroll/Scroll";
+import BackTop from "components/content/backtop/BackTop";
+
 import {deBounce} from "@/common/Utils"
+import {getHomeGoods, getHomeMultiData} from "network/home";
 
 export default {
   name: "Home",
+  components: {
+    Scroll,
+    HomeGoodList,
+    NavBar,
+    HomeSwiper,
+    TabControl,
+    BackTop,
+  },
   data(){
     return {
       netdata: {},
@@ -63,16 +79,19 @@ export default {
     // this.$bus.$off('imgLoad',func)
 
   },
-  components: {
-    Scroll,
-    HomeGoodList,
-    NavBar,
-    HomeSwiper,
-    TabControl
-  },
+
   methods: {
 
-
+    backTop(){
+      console.log('fdjfk');
+      this.$refs.hscroll.scroll.scrollTo(0,0,300)
+    },
+    pullMore(){
+      // console.log('pullmoer');
+      this.getHomeGoods(this.curtype)
+      // console.log(this.goods[this.curtype].list);
+      this.$refs.hscroll.finishPullUp()
+    },
     scroll(position){
       this.istcshow = (-position.y)>this.tcoffsettop
     },
@@ -86,9 +105,10 @@ export default {
       })
     },
     getHomeGoods(type){
-      this.goods[type].page++;
-      getHomeGoods(type,this.goods[type].page).then(res=>{
-        this.goods[type].list=res.data.list
+      const page=this.goods[type].page+1;
+      getHomeGoods(type,page).then(res=>{
+        this.goods[type].list.push(...res.data.list)
+        this.goods[type].page=page
       })
     },
     tabClickHome(idn,index){

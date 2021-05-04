@@ -3,7 +3,7 @@ export function deBounce(func,delay){
   return function (...args){
     if(timer) clearTimeout(timer)
     timer = setTimeout(()=>{
-      console.log('oodfj');
+      // console.log('oodfj');
       func.apply(this,args)
     },delay)
   }
