@@ -34,12 +34,11 @@ export default {
       this.$bus.$emit('imgLoad')
     },
     goodDetail(item){
-      console.log(item);
+      // console.log(item);
       this.$router.push({
         path: '/detail',
         query: {
           iid: item.iid,
-
         }
       })
 

@@ -14,7 +14,7 @@
             @pullingUp="pullMore">
       <home-swiper :banners="banners" @sImgLoaded="sImgLoaded"></home-swiper>
       <tab-control :titles="['流行','新款','经典']"  @tabClick="tabClickHome" ref="tabcontrol2" idn="tc2"></tab-control>
-      <home-good-list :goods="goods[curtype].list"></home-good-list>
+      <home-good-list :goods="goodlist"></home-good-list>
     </scroll>
     <BackTop @click.native = "backTop" v-show="istopshow"></BackTop>
 <!--    <div>{{netdata}}</div>-->
@@ -58,6 +58,11 @@ export default {
       istopshow: false,
     }
   },
+  computed:{
+    goodlist() {
+      return this.goods[this.curtype].list
+    }
+  },
   created(){
     this.getHomeMultiData()
 
@@ -84,7 +89,7 @@ export default {
   methods: {
 
     backTop(){
-      console.log('fdjfk');
+      // console.log('fdjfk');
       this.$refs.hscroll.scroll.scrollTo(0,0,300)
     },
     pullMore(){

@@ -15,9 +15,13 @@ export default {
   position: fixed;
   bottom: 60px;
   right: 30px;
+  /*line-height: 50px;*/
+  /*height: 80px;*/
+  /*text-align: center;*/
 }
 .back-top img{
   width: 50px;
-  height: 50px;
+  vertical-align: bottom;
+  /*line-height: 50px;*/
 }
 </style>

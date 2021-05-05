@@ -55,8 +55,7 @@
     },
     methods:{
       handleDom(){
-        if(!this.$refs.swiper.$el) return;
-        let swiperEl= this.$refs.swiper.$el
+        let swiperEl= this.$refs.swiper
         let slideEls= document.getElementsByClassName('slide')
         this.slideCount= slideEls.length
 
@@ -67,8 +66,9 @@
 
           swiperEl.insertBefore(clonelast,slideEls[0])
           swiperEl.appendChild(clonefirst)
-          if(!this.swiperStyle) return
+
           this.swiperStyle= swiperEl.style
+          console.log(this.swiperStyle);
         }
         this.totalWidth= swiperEl .offsetWidth
         this.setTransform(-this.totalWidth)
@@ -85,7 +85,7 @@
       },
 
       scrollContent(curpos){
-        try{
+
           this.scroling= true;
 
           this.swiperStyle.transition= this.animDuration+'ms';
@@ -94,9 +94,6 @@
           this.checkPosition()
 
           this.scroling= false;
-        }catch (e) {
-          // console.log(e);
-        }
 
       },
       checkPosition(){
@@ -113,11 +110,12 @@
         },this.animDuration)
       },
       setTransform(curpos){
-        if(this.swiperStyle){
+
           this.swiperStyle.transform= `translate3d(${curpos}px,0,0)`
           this.swiperStyle['-webkit-transform']= `translate3d(${curpos}px,0,0)`
           this.swiperStyle['-ms-transform']= `translate3d(${curpos}px,0,0)`
-        }
+
+
       },
 
       touchStart(e){
