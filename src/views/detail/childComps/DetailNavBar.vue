@@ -34,6 +34,7 @@ export default {
   methods:{
     clickDetailItem(index){
       this.curactive=index
+      this.$emit('clickDetailItem',index)
     },
     back(){
       this.$router.back()

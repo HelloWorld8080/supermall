@@ -32,15 +32,15 @@ export default {
     this.scroll = new BScroll(this.$refs.wrapper,{
       click: true,
       probeType: this.probeType,
-      pullUpLoad: this.pullUpLoad
+      pullUpLoad: this.pullUpLoad,
     })
+   console.log(this.scroll);
     this.scroll.on('scroll',position=>{
       this.$emit('scroll',position)
     })
     this.scroll.on('pullingUp',()=>{
       // console.log('sj');
       this.$emit('pullingUp')
-
     })
     // console.log(this.scroll);
   },

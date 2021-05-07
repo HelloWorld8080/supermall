@@ -68,7 +68,7 @@
           swiperEl.appendChild(clonefirst)
 
           this.swiperStyle= swiperEl.style
-          console.log(this.swiperStyle);
+          // console.log(this.swiperStyle);
         }
         this.totalWidth= swiperEl .offsetWidth
         this.setTransform(-this.totalWidth)
