@@ -8,5 +8,11 @@ export default {
   stuMoreAge(state,getters){
     return age =>
       state.students.filter(s=>s.age>age)
+  },
+  cartList(state){
+    return state.cartList;
+  },
+  cartListLength(state){
+    return state.cartList.length;
   }
 }

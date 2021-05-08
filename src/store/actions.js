@@ -3,9 +3,14 @@ export default {
     return new Promise((reolve,reject)=>{
       setTimeout(()=>{
         context.commit('updateInfo')
-        console.log(payload);
+        // console.log(payload);
       },1000)
     })
-
+  },
+  aaddCart(context,payload){
+    return new Promise((resolve,reject) =>{
+      console.log(payload);
+      context.commit('addCart',payload)
+    })
   }
 }

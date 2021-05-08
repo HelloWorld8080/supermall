@@ -3,7 +3,7 @@
     <div class="detail">
       <detail-nav-bar :de-tails="['商品','参数','评论','推荐']" class="detail-nav-bar"
       @clickDetailItem="scrTo"></detail-nav-bar>
-      <scroll :probe-type="3" class="content" ref="scroll" :pull-up-load="true">
+      <scroll :probe-type="3" class="content" ref="scroll" :pull-up-load="true" @scroll="scroll">
         <detail-swiper :top-images="topImages"></detail-swiper>
         <detail-base-info :baseInfo="baseInfo"/>
         <detail-shop-info :shopInfo="shopInfo"/>
@@ -13,6 +13,7 @@
         <detail-recommend :recommendList="recommendList" ref="goodsRecommend"/>
       </scroll>
       <detail-bottom-bar @addCart="addCart" class="detail-bottom-bar"/>
+      <back-top @click.native="backTop" v-show="isbtShow"></back-top>
     </div>
 
 </template>
@@ -61,7 +62,11 @@ export default {
       imgItemListener: null, //控制商品推荐图片加载显示的listener
       themeTopYs:[0],    //记录商品,参数，评论，推荐的offsetTop
       currentIndex: 0, //记录滚动到某个具体的栏目参
+      isbtShow: false,
     }
+  },
+  computed: {
+
   },
   created() {
     // console.log(this.$route.query.iid);
@@ -87,6 +92,26 @@ export default {
     })
   },
   methods: {
+    addCart(){
+      const product = {};
+      product.image = this.topImages[0];
+      product.title = this.baseInfo.title;
+      product.desc = this.baseInfo.desc;
+      product.price = this.baseInfo.newPrice;
+      product.iid = this.baseInfo.iid;
+      product.realPrice = this.baseInfo.realPrice;
+      this.$store.dispatch('aaddCart', product).then(res=>{
+        console.log('addcart');
+      })
+    },
+    scroll(position) {
+      // console.log(position.y);
+      this.isbtShow = -position.y>=1000
+    },
+    backTop() {
+      // console.log('djfkd');
+      this.$refs.scroll.scrollTo(0,0,300)
+    },
     pullingUp(){
       console.log('pullingup');
     },

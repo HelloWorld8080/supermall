@@ -14,7 +14,8 @@ const state={
   students:[{name: 'liuxun', age: '24',},
     {name: 'agular', age: '20',},
     {name: 'react', age: '13',}
-  ]
+  ],
+  cartList: []
 }
 
 export default new Vuex.Store(

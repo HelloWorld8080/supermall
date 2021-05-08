@@ -10,6 +10,11 @@ export default {
   addStu(state,stu){
     state.students.push(stu)
   },
+  addCart(state,cart){
+    console.log(cart);
+    state.cartList.push(cart)
+
+  },
   //matution的另一种提交风格
   // addStu(state,payload){
   //  state.students.push(payload.stu)
