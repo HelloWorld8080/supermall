@@ -12,8 +12,14 @@ export default {
   },
   addCart(state,cart){
     console.log(cart);
-    state.cartList.push(cart)
-
+    let product= state.cartList.find(item => item.iid === cart.iid)
+    if(product)
+    product.num++;
+    else {
+      cart.num = 1;
+      cart.isSelected = false
+      state.cartList.push(cart)
+    }
   },
   //matution的另一种提交风格
   // addStu(state,payload){
